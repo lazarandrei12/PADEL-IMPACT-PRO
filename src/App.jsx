@@ -10,7 +10,7 @@ import screen4 from "./assets/HighresScreenshot00012.png";
 import screen5 from "./assets/HighresScreenshot00015.png";
 import screen6 from "./assets/HighresScreenshot00016.png";
 import screen7 from "./assets/HighresScreenshot00017.png";
-import trailer from "./assets/0315(4).mp4";
+//import trailer from "./assets/0315(4).mp4";
 
 const screenshots = [
   { src: screen2, caption: "Iconic Locations", sub: "Play in stunning real-world inspired courts" },
@@ -311,10 +311,10 @@ function ScreenshotsSection({ screenshots, active, setActive }) {
 }
 
 // ── MEDIA ─────────────────────────────────────────────────
+// ── MEDIA ─────────────────────────────────────────────────
 function MediaSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
-  const [isPlaying, setIsPlaying] = useState(false);
 
   return (
     <section ref={ref} id="media" className="relative py-20 md:py-32 px-6 md:px-20">
@@ -329,17 +329,20 @@ function MediaSection() {
           <h2 className="text-3xl md:text-6xl font-black uppercase tracking-tight">Official Trailer</h2>
         </div>
 
-        {/* Trailer Video Player */}
+        {/* Trailer Video Player - YouTube Embed */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative aspect-video bg-[#0d1929] border border-white/10 overflow-hidden mb-12 md:mb-16 group rounded-sm">
-          <video
-            src={trailer}
-            controls
-            className="w-full h-full object-cover"
-          />
+          className="relative aspect-video bg-[#0d1929] border border-white/10 overflow-hidden mb-12 md:mb-16 group rounded-sm shadow-2xl shadow-black/50">
+          <iframe
+            className="absolute inset-0 w-full h-full"
+            src="https://www.youtube.com/embed/Jm8j7A6llGk?rel=0&modestbranding=1"
+            title="Padel Impact Pro - Official Teaser"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen>
+          </iframe>
         </motion.div>
       </motion.div>
     </section>
