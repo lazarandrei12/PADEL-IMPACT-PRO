@@ -10,6 +10,8 @@ import screen4 from "./assets/HighresScreenshot00012.png";
 import screen5 from "./assets/HighresScreenshot00015.png";
 import screen6 from "./assets/HighresScreenshot00016.png";
 import screen7 from "./assets/HighresScreenshot00017.png";
+import screen8 from "./assets/poza1gr (1).png";
+import screen9 from "./assets/poza1gr (2).png";
 //import trailer from "./assets/0315(4).mp4";
 
 const screenshots = [
@@ -20,6 +22,8 @@ const screenshots = [
   { src: screen5, caption: "Competitive Spirit", sub: "Challenge opponents and climb the ranks" },
   { src: screen6, caption: "Team Play", sub: "Master the art of coordination and timing" },
   { src: screen7, caption: "Victory Moments", sub: "Celebrate your wins with epic shots" },
+  { src: screen8, caption: "Advanced Graphics", sub: "Stunning visuals and immersive gameplay" },
+  { src: screen9, caption: "Multiplayer Thrills", sub: "Experience the ultimate padel competition" },
 ];
 
 export default function App() {
