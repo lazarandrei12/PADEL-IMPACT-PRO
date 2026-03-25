@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform, useInView, AnimatePresence } from "fra
 import logo from "./assets/logo_acum_bun.png";
 import screen1 from "./assets/HighresScreenshot00007.png";
 import screen2 from "./assets/HighresScreenshot00010.png"; // Aici am pus poza cerută
-import screen3 from "./assets/ChatGPT Image Feb 23, 2026, 11_29_41 PM.png";
+import screen3 from "./assets/HighresScreenshot00003.png";
 import screen4 from "./assets/HighresScreenshot00012.png";
 import screen5 from "./assets/HighresScreenshot00015.png";
 import screen6 from "./assets/HighresScreenshot00016.png";
