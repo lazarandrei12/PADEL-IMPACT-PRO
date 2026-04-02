@@ -145,20 +145,54 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.8 }}
             className="flex flex-col md:flex-row gap-4 w-full sm:w-2/3 md:w-auto mx-auto">
+            {/* Buton 1: Wishlist */}
             <a href="https://store.steampowered.com/app/4510950/Padel_Impact_Pro/?beta=1" target="_blank" rel="noopener noreferrer" className="w-full md:w-auto flex items-center justify-center bg-[#3b82f6] text-white text-xs tracking-[0.2em] uppercase px-8 py-4 md:py-3.5 hover:bg-[#2563eb] transition-all duration-300 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]">
               Add to Wishlist
             </a>
-            <button className="w-full md:w-auto bg-transparent text-[#3b82f6] text-xs tracking-[0.2em] uppercase border border-[#3b82f6]/50 px-8 py-4 md:py-3.5 hover:bg-[#3b82f6]/10 transition-all duration-300">
+            
+            {/* Buton 2: Watch Trailer  */}
+            <a href="#media" className="w-full md:w-auto flex items-center justify-center bg-transparent text-white text-xs tracking-[0.2em] uppercase px-8 py-4 md:py-3.5 border border-white hover:bg-white/10 transition-all duration-300">
               Watch Trailer
-            </button>
+            </a>
           </motion.div>
         </motion.div>
       </section>
 
       <FeaturesSection />
+
+      <AdBanner />
+
       <ScreenshotsSection screenshots={screenshots} active={activeScreenshot} setActive={setActiveScreenshot} />
       <MediaSection />
+
+      <AdBanner />
+
       <Footer logo={logo} />
+    </div>
+  );
+}
+
+function AdBanner() {
+  const adRef = useRef(false);
+
+  useEffect(() => {
+    if (adRef.current) return;
+    adRef.current = true;
+
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {
+      console.error("AdSense error", e);
+    }
+  }, []);
+
+  return (
+    <div className="w-full bg-[#050a14] py-6 flex justify-center overflow-hidden border-t border-white/5">
+      <ins className="adsbygoogle"
+           style={{ display: "block", width: "100%", maxWidth: "900px", minHeight: "90px" }}
+           data-ad-client="ca-pub-7891696047652204"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
     </div>
   );
 }
