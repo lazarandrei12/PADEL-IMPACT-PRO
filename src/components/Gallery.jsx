@@ -105,15 +105,15 @@ export default function Gallery() {
             </svg>
           </button>
 
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#050a14] via-[#050a14]/80 to-transparent p-8">
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#050a14] via-[#050a14]/80 to-transparent p-4 md:p-8">
             <div key={active} style={{ animation: "pip-fade-up 0.6s cubic-bezier(0.16,1,0.3,1) both" }}>
-              <p className="text-[#3b82f6] text-xs tracking-[0.4em] uppercase mb-2" style={{ fontFamily: "'Barlow', sans-serif" }}>{s.caption}</p>
-              <p className="text-white/90 text-base md:text-lg" style={{ fontFamily: "'Barlow', sans-serif" }}>{s.sub}</p>
+              <p className="text-[#3b82f6] text-[9px] md:text-xs tracking-[0.3em] md:tracking-[0.4em] uppercase mb-1 md:mb-2" style={{ fontFamily: "'Barlow', sans-serif" }}>{s.caption}</p>
+              <p className="text-white/90 text-xs md:text-base" style={{ fontFamily: "'Barlow', sans-serif" }}>{s.sub}</p>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-9 gap-2 mt-4">
+        <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-9 gap-2 mt-4">
           {SCREENSHOTS.map((sc, i) => (
             <button key={i} onClick={() => setActive(i)} aria-label={`Show ${sc.caption}`}
               className={`relative aspect-video overflow-hidden rounded-sm transition-all duration-300 ${active === i ? "ring-1 ring-[#3b82f6] opacity-100" : "opacity-30 hover:opacity-70"}`}>

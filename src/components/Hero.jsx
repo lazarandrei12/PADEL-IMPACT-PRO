@@ -117,15 +117,15 @@ export default function Hero() {
       {/* Scroll-revealed CTAs */}
       <div
         ref={revealRef}
-        className="absolute left-1/2 -translate-x-1/2 bottom-24 md:bottom-28 z-10 flex flex-col items-center text-center px-6 w-full max-w-3xl mx-auto will-change-transform opacity-0"
+        className="absolute left-0 right-0 bottom-16 md:bottom-28 z-10 flex flex-col items-center text-center px-6 will-change-transform opacity-0"
         style={{ transform: "translate3d(0, 80px, 0)" }}
       >
-        <div className="mb-8 flex items-center gap-4" style={{ fontFamily: "'Barlow', sans-serif" }}>
-          <span className="w-10 h-px bg-white/30" />
-          <p className="text-white/70 text-[11px] md:text-sm tracking-[0.5em] uppercase">In Session · 2026</p>
-          <span className="w-10 h-px bg-white/30" />
+        <div className="mb-5 md:mb-8 flex items-center gap-3 md:gap-4" style={{ fontFamily: "'Barlow', sans-serif" }}>
+          <span className="w-6 md:w-10 h-px bg-white/30" />
+          <p className="text-white/70 text-[10px] md:text-sm tracking-[0.3em] md:tracking-[0.5em] uppercase">In Session · 2026</p>
+          <span className="w-6 md:w-10 h-px bg-white/30" />
         </div>
-        <div className="flex flex-col md:flex-row gap-4">
+        <div className="flex flex-col sm:flex-row gap-3 w-full max-w-xs sm:max-w-none sm:w-auto">
           <BtnPrimary href="https://store.steampowered.com/app/4510950/Padel_Impact_Pro/?beta=1">
             Add to Wishlist
           </BtnPrimary>

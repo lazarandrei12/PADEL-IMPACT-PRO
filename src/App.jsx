@@ -65,7 +65,6 @@ export default function App() {
       <Nav onNavigate={onNavigate} active={active} />
       <Hero />
       <Friends />
-      <AdBanner />
       <Gallery />
       <Media />
       <AdBanner />
