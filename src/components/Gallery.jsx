@@ -1,27 +1,17 @@
 import { useState, useEffect, useRef } from "react";
-import imgTeam1 from "../assets/TEAM 1.png";
-import img32 from "../assets/HighresScreenshot00032.png";
-import img10 from "../assets/HighresScreenshot00010.png";
-import img07 from "../assets/HighresScreenshot00007.png";
-import img17 from "../assets/HighresScreenshot00017.png";
-import img12 from "../assets/HighresScreenshot00012.png";
-import img15 from "../assets/HighresScreenshot00015.png";
-
-import img23 from "../assets/HighresScreenshot00023.png";
-import img26 from "../assets/HighresScreenshot00026.png";
+import ssSteam1 from "../assets/SS_STEAM1.png";
+import ssSteam2 from "../assets/SS_STEAM2.png";
+import ssSteam3 from "../assets/SS_STEAM3.png";
+import ssSteam4 from "../assets/SS_STEAM4.png";
+import ssSteam5 from "../assets/SS_STEAM5.png";
 import { Eyebrow, H2 } from "./Primitives";
 
 const SCREENSHOTS = [
-  { src: imgTeam1, caption: "The Team",             sub: "The people behind Padel Impact Pro" },
-  { src: img32,    caption: "On Court",             sub: "Step inside the arena" },
-  { src: img10, caption: "Iconic Locations",      sub: "Play in stunning real-world inspired courts" },
-  { src: img07, caption: "Precision Gameplay",    sub: "Feel every shot, every serve, every smash" },
-  { src: img17, caption: "Intense Rallies",        sub: "2v2 multiplayer — dominate with your partner" },
-  { src: img12, caption: "Dynamic Action",         sub: "Experience fast-paced padel gameplay" },
-  { src: img15, caption: "Competitive Spirit",     sub: "Challenge opponents and climb the ranks" },
-
-  { src: img23, caption: "Total Focus",            sub: "Get in the zone before the first serve" },
-  { src: img26, caption: "Split-Second Reflexes",  sub: "Master low returns and defensive plays" },
+  { src: ssSteam1, caption: "On Court",            sub: "Step inside the arena" },
+  { src: ssSteam2, caption: "Iconic Locations",    sub: "Play in stunning real-world inspired courts" },
+  { src: ssSteam3, caption: "Precision Gameplay",  sub: "Feel every shot, every serve, every smash" },
+  { src: ssSteam4, caption: "Intense Rallies",     sub: "2v2 multiplayer — dominate with your partner" },
+  { src: ssSteam5, caption: "Dynamic Action",      sub: "Experience fast-paced padel gameplay" },
 ];
 
 export default function Gallery() {
@@ -113,7 +103,7 @@ export default function Gallery() {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-9 gap-2 mt-4">
+        <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 mt-4">
           {SCREENSHOTS.map((sc, i) => (
             <button key={i} onClick={() => setActive(i)} aria-label={`Show ${sc.caption}`}
               className={`relative aspect-video overflow-hidden rounded-sm transition-all duration-300 ${active === i ? "ring-1 ring-[#3b82f6] opacity-100" : "opacity-30 hover:opacity-70"}`}>

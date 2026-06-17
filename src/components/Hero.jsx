@@ -9,8 +9,6 @@ export default function Hero() {
   const revealRef = useRef(null);
   const meshRef = useRef(null);
   const glyphRef = useRef(null);
-  const metaTLRef = useRef(null);
-  const metaBRRef = useRef(null);
 
   useEffect(() => {
     let raf = 0;
@@ -38,9 +36,6 @@ export default function Hero() {
           revealRef.current.style.transform = `translate3d(0, ${translate}px, 0)`;
           revealRef.current.style.opacity = progress;
         }
-        const metaOp = Math.min(1, y / (vh * 0.25));
-        if (metaTLRef.current) metaTLRef.current.style.opacity = metaOp;
-        if (metaBRRef.current) metaBRRef.current.style.opacity = metaOp;
       });
     };
     onScroll();
@@ -82,25 +77,9 @@ export default function Hero() {
         </span>
       </div>
 
-      {/* Top-left metadata */}
-      <div ref={metaTLRef} className="absolute top-24 left-6 md:top-28 md:left-10 z-20 hidden sm:flex items-start gap-3 text-[10px] tracking-[0.3em] uppercase text-white/50 opacity-0" style={{ fontFamily: "'Barlow', sans-serif" }}>
-        <span className="w-8 h-px bg-[#3b82f6] mt-[7px]" />
-        <div className="flex flex-col gap-1">
-          <span className="text-white/80">Coming Soon</span>
-          <span>Wishlist · Steam</span>
-        </div>
-      </div>
 
-      {/* Bottom-right metadata */}
-      <div ref={metaBRRef} className="absolute bottom-6 right-6 md:bottom-10 md:right-10 z-20 hidden sm:flex flex-col items-end gap-1 text-[10px] tracking-[0.3em] uppercase text-white/40 opacity-0" style={{ fontFamily: "'Barlow', sans-serif" }}>
-        <span>2v2 Multiplayer</span>
-        <span>Unreal Engine 5 · PC</span>
-        <span className="flex items-center gap-2 text-white/70">
-          In Development <span className="w-1.5 h-1.5 bg-[#3b82f6] rounded-full animate-pulse" />
-        </span>
-      </div>
 
-      {/* Logo */}
+{/* Logo */}
       <div ref={logoRef} className="relative z-10 flex flex-col items-center will-change-transform">
         <div
           className="w-60 md:w-[28rem]"
@@ -120,12 +99,7 @@ export default function Hero() {
         className="absolute left-0 right-0 bottom-16 md:bottom-28 z-10 flex flex-col items-center text-center px-6 will-change-transform opacity-0"
         style={{ transform: "translate3d(0, 80px, 0)" }}
       >
-        <div className="mb-5 md:mb-8 flex items-center gap-3 md:gap-4" style={{ fontFamily: "'Barlow', sans-serif" }}>
-          <span className="w-6 md:w-10 h-px bg-white/30" />
-          <p className="text-white/70 text-[10px] md:text-sm tracking-[0.3em] md:tracking-[0.5em] uppercase">In Session · 2026</p>
-          <span className="w-6 md:w-10 h-px bg-white/30" />
-        </div>
-        <div className="flex flex-col sm:flex-row gap-3 w-full max-w-xs sm:max-w-none sm:w-auto">
+<div className="flex flex-col sm:flex-row gap-3 w-full max-w-xs sm:max-w-none sm:w-auto">
           <BtnPrimary href="https://store.steampowered.com/app/4510950/Padel_Impact_Pro/?beta=1">
             Add to Wishlist
           </BtnPrimary>

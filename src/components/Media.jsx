@@ -47,22 +47,6 @@ export default function Media() {
               </h3>
             </div>
 
-            <div className="flex items-center gap-3 mt-2" style={{ fontFamily: "'Barlow', sans-serif" }}>
-              <span className="w-8 h-px bg-white/20" />
-              <p className="text-white/40 text-[11px] tracking-[0.4em] uppercase">Trailer drops before launch</p>
-              <span className="w-8 h-px bg-white/20" />
-            </div>
-
-            <div className="flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase text-[#3b82f6]" style={{ fontFamily: "'Barlow', sans-serif" }}>
-              <span className="w-1.5 h-1.5 bg-[#3b82f6] rounded-full animate-pulse" />
-              <span>In Production</span>
-            </div>
-          </div>
-
-          {/* Corner label */}
-          <div className="absolute top-6 left-6 flex items-center gap-3 text-[10px] tracking-[0.3em] uppercase text-white/30" style={{ fontFamily: "'Barlow', sans-serif" }}>
-            <span className="w-6 h-px bg-[#3b82f6]/50" />
-            <span>Official Teaser</span>
           </div>
         </div>
 
