@@ -30,7 +30,7 @@ const FEATURES = [
 
 export default function Friends() {
   return (
-    <section id="squad" className="relative py-24 md:py-40 px-6 md:px-20 bg-[#03060c] overflow-hidden">
+    <section id="thegame" className="relative py-24 md:py-40 px-6 md:px-20 bg-[#03060c] overflow-hidden">
       <div aria-hidden className="absolute inset-0 pointer-events-none" style={{
         background: "radial-gradient(ellipse 70% 50% at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.3) * 100%), rgba(59,130,246,0.08) 0%, transparent 60%)"
       }} />

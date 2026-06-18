@@ -2,7 +2,12 @@ import { useState, useEffect } from "react";
 import logo from "../assets/logo_acum_bun.png";
 import { BtnOutlineBlue } from "./Primitives";
 
-const NAV_ITEMS = ["Game", "Squad", "Screenshots", "Media"];
+const NAV_ITEMS = [
+  { label: "Intro",       id: "game"       },
+  { label: "The Game",    id: "thegame"    },
+  { label: "Screenshots", id: "screenshots" },
+  { label: "Media",       id: "media"      },
+];
 
 export default function Nav({ onNavigate, active }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -32,18 +37,15 @@ export default function Nav({ onNavigate, active }) {
         </button>
 
         <div className="hidden md:flex gap-10 text-xs tracking-[0.2em] uppercase text-white/60 font-medium" style={{ fontFamily: "'Barlow', sans-serif" }}>
-          {NAV_ITEMS.map((item) => {
-            const id = item.toLowerCase().replace(/\s+/g, "");
-            return (
-              <button
-                key={item}
-                onClick={() => onNavigate(id)}
-                className={`hover:text-[#3b82f6] transition-colors duration-300 ${active === id ? "text-[#3b82f6]" : ""}`}
-              >
-                {item}
-              </button>
-            );
-          })}
+          {NAV_ITEMS.map(({ label, id }) => (
+            <button
+              key={id}
+              onClick={() => onNavigate(id)}
+              className={`hover:text-[#3b82f6] transition-colors duration-300 ${active === id ? "text-[#3b82f6]" : ""}`}
+            >
+              {label}
+            </button>
+          ))}
         </div>
 
         <div className="hidden md:flex gap-6 items-center">
@@ -70,19 +72,16 @@ export default function Nav({ onNavigate, active }) {
 
       {menuOpen && (
         <div className="fixed inset-0 z-40 bg-[#050a14]/98 flex flex-col items-center justify-center gap-8 backdrop-blur-lg">
-          {NAV_ITEMS.map((item) => {
-            const id = item.toLowerCase().replace(/\s+/g, "");
-            return (
-              <button
-                key={item}
-                onClick={() => { onNavigate(id); setMenuOpen(false); }}
-                className="text-2xl tracking-widest uppercase text-white/80 hover:text-[#3b82f6] transition-colors"
-                style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-              >
-                {item}
-              </button>
-            );
-          })}
+          {NAV_ITEMS.map(({ label, id }) => (
+            <button
+              key={id}
+              onClick={() => { onNavigate(id); setMenuOpen(false); }}
+              className="text-2xl tracking-widest uppercase text-white/80 hover:text-[#3b82f6] transition-colors"
+              style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+            >
+              {label}
+            </button>
+          ))}
           <a
             href="mailto:contact@padelimpact.games"
             onClick={() => setMenuOpen(false)}
