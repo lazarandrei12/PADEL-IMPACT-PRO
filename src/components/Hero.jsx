@@ -1,119 +1,142 @@
-import { useEffect, useRef } from "react";
-import logo from "../assets/logo_acum_bun.png";
-import heroBg from "../assets/HighresScreenshot00032.png";
-import { BtnPrimary, BtnGhost } from "./Primitives";
+import { PANELS } from "./panels";
 
-export default function Hero() {
-  const rootRef = useRef(null);
-  const logoRef = useRef(null);
-  const revealRef = useRef(null);
-  const meshRef = useRef(null);
-  const glyphRef = useRef(null);
+const EASE = "cubic-bezier(0.16,1,0.3,1)";
+const SHADE =
+  "linear-gradient(180deg,rgba(0,0,0,0.28) 0%,rgba(0,0,0,0) 35%,rgba(0,0,0,0) 60%,rgba(0,0,0,0.35) 100%),rgba(90,90,90,0.26)";
 
-  useEffect(() => {
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const y = window.scrollY;
-        const vh = window.innerHeight;
-        if (y > vh * 1.4) return;
+function Panel({ panel, index, on, wide, reduce, onOpen, onClose }) {
+  const { label, image, position, tint, height, top, narrow, Body } = panel;
+  const dur = reduce ? "0s" : "0.55s";
 
-        const logoOp = Math.max(0, 1 - y / (vh * 0.9));
-        if (logoRef.current) {
-          logoRef.current.style.transform = `translate3d(0, ${y * -0.15}px, 0)`;
-          logoRef.current.style.opacity = logoOp;
-        }
-        if (glyphRef.current) {
-          glyphRef.current.style.transform = `translate3d(0, ${y * -0.25}px, 0) scale(${1 + y / (vh * 8)})`;
-        }
-        if (meshRef.current) {
-          meshRef.current.style.transform = `translate3d(0, ${y * -0.08}px, 0) rotate(${y * 0.02}deg)`;
-        }
-        if (revealRef.current) {
-          const progress = Math.min(1, Math.max(0, y / (vh * 0.55)));
-          const translate = (1 - progress) * 80;
-          revealRef.current.style.transform = `translate3d(0, ${translate}px, 0)`;
-          revealRef.current.style.opacity = progress;
-        }
-      });
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(raf); };
-  }, []);
+  const slot = wide
+    ? {
+        flex: `${on ? 16 : 1} 1 0%`,
+        minWidth: 0,
+        height: on ? 740 : height,
+        marginTop: on ? 0 : top,
+        transition: `flex-grow ${dur} ${EASE}, height ${dur} ${EASE}, margin-top ${dur} ${EASE}`,
+      }
+    : {
+        width: narrow,
+        height: on ? 640 : 132,
+        transition: `height ${dur} ${EASE}`,
+      };
+
+  const onKeyDown = (e) => {
+    if (!on && (e.key === "Enter" || e.key === " ")) {
+      e.preventDefault();
+      onOpen();
+    }
+  };
 
   return (
-    <section id="game" ref={rootRef} className="relative h-[100svh] min-h-[720px] overflow-hidden flex items-center justify-center bg-[#050a14]">
-      {/* Background image — revealed by cursor spotlight */}
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: `url(${heroBg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "calc(50% + (var(--mx, 0.5) - 0.5) * -40px) calc(50% + (var(--my, 0.5) - 0.5) * -30px)",
-          filter: "grayscale(0.6) brightness(0.45) contrast(1.05)",
-          opacity: 0.22,
-          transform: "scale(1.08)",
-          WebkitMaskImage: "radial-gradient(circle 420px at var(--mxpx, 50%) var(--mypx, 50%), rgba(0,0,0,1) 0%, rgba(0,0,0,0.75) 40%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0.2) 100%)",
-          maskImage: "radial-gradient(circle 420px at var(--mxpx, 50%) var(--mypx, 50%), rgba(0,0,0,1) 0%, rgba(0,0,0,0.75) 40%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0.2) 100%)",
-        }}
-      />
-
-      {/* Atmospheric layers */}
-      <div ref={meshRef} className="absolute inset-0 pointer-events-none will-change-transform flex items-center justify-center">
-        <div className="pip-mesh" />
-      </div>
-      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(59,130,246,0.08) 0%, transparent 70%)" }} />
-      <div className="absolute inset-0 pointer-events-none pip-scanlines" />
-      <div className="absolute inset-0 pointer-events-none pip-grain" />
-      <div className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-[#050a14] via-[#050a14]/70 to-transparent" />
-
-      {/* Ghost "PADEL" typography */}
-      <div aria-hidden className="absolute inset-0 flex items-center justify-center pointer-events-none z-[1] select-none will-change-transform" ref={glyphRef}>
-        <span className="block text-[38vw] md:text-[24vw] leading-none italic font-black tracking-[-0.05em] text-white/[0.04]" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>
-          PADEL
-        </span>
-      </div>
-
-
-
-{/* Logo */}
-      <div ref={logoRef} className="relative z-10 flex flex-col items-center will-change-transform">
+    <div style={slot}>
+      <div className="reveal h-full" style={{ transitionDelay: `${index * 0.1}s` }}>
         <div
-          className="w-60 md:w-[28rem]"
-          style={{
-            filter: "drop-shadow(0 0 120px rgba(59,130,246,0.55))",
-            transform: "translate3d(calc((var(--mx, 0.5) - 0.5) * 18px), calc((var(--my, 0.5) - 0.5) * 12px), 0)",
-            transition: "transform .2s cubic-bezier(0.16, 1, 0.3, 1)",
-          }}
+          role={on ? undefined : "button"}
+          tabIndex={on ? undefined : 0}
+          aria-label={on ? undefined : `Open ${label}`}
+          onClick={onOpen}
+          onKeyDown={onKeyDown}
+          className={`relative w-full h-full rounded-[20px] overflow-hidden bg-[#0a2f6b] outline-offset-[3px] transition-[transform,box-shadow] duration-300 ease-[ease] ${
+            on
+              ? "cursor-default shadow-[0_30px_60px_rgba(2,20,60,0.4)]"
+              : "cursor-pointer shadow-[0_12px_30px_rgba(2,20,60,0.25)] hover:-translate-y-2 hover:shadow-[0_30px_50px_rgba(2,20,60,0.45)]"
+          }`}
         >
-          <img src={logo} alt="Padel Impact Pro" fetchpriority="high" decoding="async" className="w-full h-full object-contain" />
+          <div
+            className="absolute inset-0"
+            style={{ background: `url(${image}) ${position}/cover no-repeat` }}
+          />
+          <div className="absolute inset-0" style={{ background: SHADE }} />
+          {tint && <div className="absolute inset-0" style={{ background: `rgba(0,0,0,${tint})` }} />}
+          <div
+            className="absolute inset-0 bg-black/60 pointer-events-none"
+            style={{ opacity: on ? 1 : 0, transition: `opacity ${dur} ease` }}
+          />
+
+          <div
+            aria-hidden
+            className={`absolute pointer-events-none whitespace-nowrap font-extrabold italic uppercase leading-none text-white transition-opacity duration-[250ms] ${
+              on ? "opacity-0" : "opacity-100"
+            } ${
+              wide
+                ? "top-7 left-[22px] text-[46px] [writing-mode:vertical-rl] rotate-180"
+                : "bottom-[26px] left-6 text-[20px] min-[430px]:text-[26px] sm:text-[40px]"
+            }`}
+          >
+            {label}
+          </div>
+          <div
+            aria-hidden
+            className={`absolute bottom-[22px] w-[34px] h-[34px] rounded-full border-[1.5px] border-white flex items-center justify-center text-xl leading-none pointer-events-none transition-opacity duration-[250ms] ${
+              wide ? "left-[22px]" : "right-[22px]"
+            } ${on ? "opacity-0" : "opacity-100"}`}
+          >
+            +
+          </div>
+
+          <button
+            type="button"
+            aria-label={`Close ${label}`}
+            tabIndex={on ? 0 : -1}
+            onClick={(e) => { e.stopPropagation(); onClose(); }}
+            className="absolute top-6 right-6 z-[3] w-9 h-9 rounded-full border-[1.5px] border-white flex items-center justify-center text-xl leading-none cursor-pointer"
+            style={{
+              opacity: on ? 1 : 0,
+              pointerEvents: on ? "auto" : "none",
+              transition: `opacity ${dur} ease .15s`,
+            }}
+          >
+            ×
+          </button>
+
+          <div
+            inert={!on}
+            className={`absolute inset-0 flex flex-col overflow-hidden ${
+              wide ? "pt-9 pr-9 pb-6 pl-8" : "pt-7 px-[22px] pb-[22px]"
+            }`}
+            style={{
+              opacity: on ? 1 : 0,
+              transform: on ? "none" : "translateY(14px)",
+              transition: reduce ? "none" : `opacity .45s ease .12s, transform .55s ${EASE} .12s`,
+              pointerEvents: on ? "auto" : "none",
+            }}
+          >
+            <h2
+              className={`font-extrabold italic uppercase leading-none mb-3 ${
+                wide ? "text-[52px]" : "text-[22px] min-[430px]:text-[26px] sm:text-[36px]"
+              }`}
+            >
+              {label}
+            </h2>
+            <Body open={on} />
+          </div>
         </div>
       </div>
+    </div>
+  );
+}
 
-      {/* Scroll-revealed CTAs */}
+export default function Hero({ open, onOpen, onClose, wide, reduce }) {
+  return (
+    <div className="flex-1 w-full max-w-[1400px] mx-auto px-6 pt-6 pb-14 rounded-[28px] bg-[rgba(40,52,70,0.18)]">
       <div
-        ref={revealRef}
-        className="absolute left-0 right-0 bottom-16 md:bottom-28 z-10 flex flex-col items-center text-center px-6 will-change-transform opacity-0"
-        style={{ transform: "translate3d(0, 80px, 0)" }}
+        className={`flex gap-3 items-start ${wide ? "h-[760px]" : "flex-col"}`}
       >
-<div className="flex flex-col sm:flex-row gap-3 w-full max-w-xs sm:max-w-none sm:w-auto">
-          <BtnPrimary href="https://store.steampowered.com/app/4510950/Padel_Impact_Pro/?beta=1">
-            Add to Wishlist
-          </BtnPrimary>
-          <BtnGhost href="#media">Watch Trailer</BtnGhost>
-        </div>
+        {PANELS.map((panel, i) => (
+          <Panel
+            key={panel.label}
+            panel={panel}
+            index={i}
+            on={open === i}
+            wide={wide}
+            reduce={reduce}
+            onOpen={() => { if (open !== i) onOpen(i); }}
+            onClose={onClose}
+          />
+        ))}
       </div>
-
-      {/* Scroll chevron */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/30 text-[10px] tracking-[0.4em] uppercase pip-bob flex flex-col items-center gap-2" style={{ fontFamily: "'Barlow', sans-serif" }}>
-        <span>Scroll to Enter</span>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter">
-          <path d="M12 5v14M5 12l7 7 7-7" />
-        </svg>
-      </div>
-    </section>
+    </div>
   );
 }

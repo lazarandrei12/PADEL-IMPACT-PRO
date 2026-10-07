@@ -1,74 +1,57 @@
-import { useEffect, useRef, useState } from "react";
-import CursorFX from "./components/CursorFX";
+import { useEffect, useState } from "react";
+import Intro from "./components/Intro";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
-import Friends from "./components/Friends";
-import Gallery from "./components/Gallery";
-import Media from "./components/Media";
 import Footer from "./components/Footer";
 
-function AdBanner() {
-  const adRef = useRef(false);
-
+function useMediaQuery(query) {
+  const [matches, setMatches] = useState(() => window.matchMedia(query).matches);
   useEffect(() => {
-    if (adRef.current) return;
-    adRef.current = true;
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      console.error("AdSense error", e);
-    }
-  }, []);
-
-  return (
-    <div className="w-full bg-[#050a14] py-6 flex justify-center overflow-hidden border-t border-white/5">
-      <ins
-        className="adsbygoogle"
-        style={{ display: "block", width: "100%", maxWidth: "900px", minHeight: "90px" }}
-        data-ad-client="ca-pub-7891696047652204"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      />
-    </div>
-  );
+    const mq = window.matchMedia(query);
+    const onChange = () => setMatches(mq.matches);
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, [query]);
+  return matches;
 }
 
 export default function App() {
-  const [active, setActive] = useState("game");
+  const [open, setOpen] = useState(null); // null | 0..3
+  const wide = useMediaQuery("(min-width: 980px)");
+  const reduce = useMediaQuery("(prefers-reduced-motion: reduce)");
 
-  function onNavigate(id) {
-    setActive(id);
-    const el = document.getElementById(id);
-    if (el) window.scrollTo({ top: el.offsetTop - 40, behavior: "smooth" });
-  }
+  const close = () => setOpen(null);
 
-  // Wire up .reveal elements via IntersectionObserver
+  // Fade/rise elements in every time they scroll into view
   useEffect(() => {
     const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add("in");
-            io.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -80px 0px" }
+      (entries) => entries.forEach((e) => {
+        e.target.classList.toggle("in", e.isIntersecting);
+      }),
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
     );
     document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, []);
 
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape") setOpen(null); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
   return (
-    <div className="bg-[#050a14] text-white overflow-x-hidden">
-      <CursorFX />
-      <Nav onNavigate={onNavigate} active={active} />
-      <Hero />
-      <Friends />
-      <Gallery />
-      <Media />
-      <AdBanner />
-      <Footer />
+    <div className="text-white">
+      <Intro />
+      <div id="panels" className="relative isolate min-h-screen flex flex-col bg-[#0251B0]">
+        <div aria-hidden className="page-texture -z-10" />
+        <Nav onClose={close} />
+        <main className="flex-1 flex flex-col px-7 pt-1.5 pb-6">
+          <Hero open={open} onOpen={setOpen} onClose={close} wide={wide} reduce={reduce} />
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 }
