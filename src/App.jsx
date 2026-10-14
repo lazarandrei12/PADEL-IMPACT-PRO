@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Intro from "./components/Intro";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
@@ -21,9 +21,10 @@ export default function App() {
   const wide = useMediaQuery("(min-width: 980px)");
   const reduce = useMediaQuery("(prefers-reduced-motion: reduce)");
 
-  const close = () => setOpen(null);
+  const close = useCallback(() => setOpen(null), []);
 
-  // Fade/rise elements in every time they scroll into view
+  // Fade/rise elements in every time they scroll into view.
+  // Re-run on layout switch: desktop and mobile panels are different elements.
   useEffect(() => {
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => {
@@ -33,7 +34,7 @@ export default function App() {
     );
     document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
+  }, [wide]);
 
   useEffect(() => {
     const onKey = (e) => { if (e.key === "Escape") setOpen(null); };
@@ -44,10 +45,10 @@ export default function App() {
   return (
     <div className="text-white">
       <Intro />
-      <div id="panels" className="relative isolate min-h-screen flex flex-col bg-[#0251B0]">
+      <div id="panels" className="relative isolate min-h-screen min-[980px]:h-[100svh] min-[980px]:min-h-[560px] flex flex-col bg-[#0251B0]">
         <div aria-hidden className="page-texture -z-10" />
         <Nav onClose={close} />
-        <main className="flex-1 flex flex-col px-7 pt-1.5 pb-6">
+        <main className="flex-1 min-h-0 flex flex-col justify-center min-[980px]:[container-type:size] px-4 sm:px-7 pt-1.5 pb-6 min-[980px]:pb-[clamp(10px,2svh,24px)]">
           <Hero open={open} onOpen={setOpen} onClose={close} wide={wide} reduce={reduce} />
         </main>
         <Footer />
