@@ -26,7 +26,7 @@ const FEATURES = [
 // Body of the "The Game" panel
 export default function Friends() {
   return (
-    <div className="flex-1 min-h-0 overflow-y-auto pr-3.5 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.5)_transparent]">
+    <div className="flex-1 min-h-0 overflow-y-auto min-[980px]:pr-3.5 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.5)_transparent]">
       <p className="font-extrabold italic uppercase text-[20px] sm:text-[34px] leading-[1.1] text-[#D2FF42] mb-3.5">
         Grab a Racket. Feel the Impact.
       </p>

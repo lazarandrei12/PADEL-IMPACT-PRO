@@ -7,9 +7,9 @@ const LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="reveal flex-none mx-7 pt-4 pb-7 border-t border-white/30 flex flex-wrap items-center justify-between gap-5 text-[13px]">
+    <footer className="reveal flex-none mx-4 sm:mx-7 pt-4 pb-7 min-[980px]:pt-3 min-[980px]:pb-[clamp(12px,2.5svh,28px)] border-t border-white/30 flex flex-wrap items-center justify-between gap-x-5 gap-y-3 text-[13px]">
       <span>© 2026 Padel Impact Pro</span>
-      <div className="flex flex-wrap gap-6">
+      <div className="flex flex-wrap gap-x-6 gap-y-2">
         {LINKS.map(({ label, href }) => (
           <a
             key={label}

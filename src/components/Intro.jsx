@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import logo from "../assets/logo_acum_bun (1).png";
+import logo from "../assets/logo_acum_bun (1).png?w=480;800;1280&format=webp&as=picture";
+import { Picture } from "./Primitives";
 
 // Full-screen opening: the complete logo over a ghost wordmark, both drifting
 // at different speeds as the page scrolls (parallax), then fading out.
@@ -55,12 +56,13 @@ export default function Intro() {
       </div>
 
       <div ref={logoRef} className="relative z-10 flex flex-col items-center will-change-transform">
-        <img
-          src={logo}
+        <Picture
+          pic={logo}
+          sizes="min(86vw, 640px, 62vh)"
           alt="Padel Impact Pro"
+          loading="eager"
           fetchPriority="high"
-          decoding="async"
-          className="w-[min(86vw,640px)] h-auto drop-shadow-[0_10px_40px_rgba(2,20,60,0.35)]"
+          className="w-[min(86vw,640px,62svh)] h-auto drop-shadow-[0_10px_40px_rgba(2,20,60,0.35)]"
         />
       </div>
 
