@@ -1,14 +1,28 @@
 import { useState } from "react";
-import courtCage from "../assets/HighresScreenshot00056.png";
-import rallyLight from "../assets/SS_1.png";
-import courtOverview from "../assets/HighresScreenshot00058.png";
-import customizer from "../assets/Screenshot 2026-10-07 222800.png";
+import venice from "../assets/POZA8.png";
+import rally from "../assets/POZA2.png";
+import sunsetPro from "../assets/POZA1.png";
+import arenaCourt from "../assets/POZA5.png";
+import customizer from "../assets/poza9.png";
+import netSunset from "../assets/POZA6.png";
+import rooftop from "../assets/POZA7.png";
+import cityCourt from "../assets/HighresScreenshot00071.png";
+import arenaNight from "../assets/HighresScreenshot00066.png";
+import arenaLights from "../assets/HighresScreenshot00065.png";
+import arenaStands from "../assets/HighresScreenshot00068.png";
 
 const SHOTS = [
-  { src: courtCage, title: "Iconic Locations" },
-  { src: rallyLight, title: "Split-Second Reflexes" },
-  { src: courtOverview, title: "Packed Stands" },
+  { src: venice, title: "Clay in the Piazza" },
+  { src: rally, title: "Split-Second Reflexes" },
+  { src: sunsetPro, title: "Golden Hour" },
+  { src: arenaCourt, title: "Center Court" },
   { src: customizer, title: "Create Your Pro" },
+  { src: arenaNight, title: "Arena Nights" },
+  { src: rooftop, title: "Rooftop Court" },
+  { src: arenaStands, title: "Packed Stands" },
+  { src: netSunset, title: "Under the Lights" },
+  { src: arenaLights, title: "Lights Down" },
+  { src: cityCourt, title: "Street Courts" },
 ];
 
 const ARROW =
@@ -33,14 +47,14 @@ export default function Gallery() {
         <button type="button" aria-label="Next screenshot" onClick={() => go(1)} className={`${ARROW} right-3`}>›</button>
       </div>
 
-      <div className="flex gap-2.5 mt-3">
+      <div className="flex gap-2.5 mt-3 p-1 overflow-x-auto">
         {SHOTS.map((s, i) => (
           <button
             key={s.title}
             type="button"
             aria-label={`Show ${s.title}`}
             onClick={() => setShot(i)}
-            className={`flex-1 basis-0 min-w-0 max-w-[120px] h-[70px] rounded-lg overflow-hidden cursor-pointer transition-opacity duration-300 ${
+            className={`shrink-0 w-[96px] h-[54px] sm:w-[120px] sm:h-[68px] rounded-lg overflow-hidden cursor-pointer transition-opacity duration-300 ${
               shot === i ? "opacity-100 outline outline-2 outline-[#D2FF42] outline-offset-2" : "opacity-55"
             }`}
           >
